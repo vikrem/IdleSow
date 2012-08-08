@@ -16,6 +16,7 @@ class CEsp
     public:
         CEsp();
         void DoESP();
+        void Unload();
     private:
         mufont_s* espFont;
 };

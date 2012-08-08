@@ -17,6 +17,11 @@ CEsp::CEsp()
     espFont = NULL;//oImport->SCR_RegisterFont("bitdust_16");
 }
 
+void CEsp::Unload()
+{
+    espFont = NULL; // Destroy old font
+}
+
 void CEsp::DoESP()
 {
     if(!config.esp.enabled)

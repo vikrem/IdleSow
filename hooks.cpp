@@ -100,6 +100,9 @@ void hk_Shutdown()
     pCgs = NULL;
     pEnts = NULL;
     
+    // Unload ESP font(s)
+    gEsp.Unload();
+    
     start_agent();
     (*orig_Shutdown)();
 }

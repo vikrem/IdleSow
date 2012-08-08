@@ -15,6 +15,11 @@ void CAimbot::DoAim()
     if(!config.aimbot.enabled)
         return; // aimbot is disabled
     
+    // Don't aim if i'm dead, or speccing
+    centity_t *me = &(pEnts[pCgs->playerNum + 1]);
+    if(!me->current.solid || me->current.team == TEAM_SPECTATOR || me->current.solid == SOLID_BMODEL)
+        return;
+    
     // Loop over all players
     
     for(int i = 0; i < MAX_CLIENTS/*pCg->frame.numEntities*/; i++)
@@ -32,6 +37,11 @@ void CAimbot::DoAim()
            pEnt->current.solid == SOLID_BMODEL || pEnt->current.team == TEAM_SPECTATOR )
             continue;
         
+        
+        // Do not consider players that are on my team
+        if(me->current.team != TEAM_PLAYERS)
+            if(pEnt->current.team == me->current.team)
+                continue;
         
         if(i == pCgs->playerNum)
             continue; // Don't shoot ourselves
@@ -64,7 +74,7 @@ void CAimbot::DoAim()
         
         VecToAngles(dir, angs);
         
-        
+        // Do aim
         for(int i = 0; i < 2; i++)
             angs[i] -= pCg->view.angles[i];
         
