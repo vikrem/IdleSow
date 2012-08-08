@@ -29,12 +29,14 @@ void die(const char* msg);
 #include "../../../SDK/warsow_1.0_sdk/source/ref_gl/r_local.h"
 #include "../../../SDK/warsow_1.0_sdk/source/gameshared/q_math.h"
 
+
 #include "libMain.h"
 #include "hooks.h"
 #include "settings.h"
 #include "syscalls.h"
 #include "math.h"
-
+#include "CAimbot.h"
+#include "CEsp.h"
 
 
 #endif

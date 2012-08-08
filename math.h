@@ -11,6 +11,7 @@
 
 // Convert a vector into view angles
 void VecToAngles( const vec3_t vec, vec3_t angles );
+float Q_RSqrt( float number );
 
 
 #endif

@@ -14,6 +14,7 @@ struct aimbot_settings_t
 {
     bool enabled;
     int aimfov;
+    bool fovenabled;
     bool autoshoot;
 };
 
@@ -38,5 +39,11 @@ struct settings_t
     esp_settings_t esp;
     camera_settings_t camera;
 };
+
+
+// global configuration
+extern settings_t config;
+
+void set_default_settings();
 
 #endif

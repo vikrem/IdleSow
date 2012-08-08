@@ -6,7 +6,6 @@
 
 
 #include "globals.h"
-memset_t orig_memset = NULL;
 dlopen_t orig_dlopen = NULL;
 
 __attribute__ ((constructor)) void sysinject(void)
@@ -14,11 +13,12 @@ __attribute__ ((constructor)) void sysinject(void)
     printf("Injecting!\n");
     fflush(stdout);
     
-    orig_memset = (memset_t) dlsym(RTLD_NEXT, "memset");
     orig_dlopen = (dlopen_t) dlsym(RTLD_NEXT, "dlopen");
     
-    // Start a thread that will repeatedly poll to see if pImports and whatnot is correct
+    // set settings up
+    set_default_settings();
     
+    // Start a thread that will repeatedly poll to see if pImports and whatnot is correct
     start_agent();
     
     

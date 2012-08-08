@@ -13,8 +13,6 @@ __attribute__ ((constructor)) void sysinject(void);
 void start_agent();
 void* hook_thread(void* arg);
 
-typedef void* (*memset_t)(void *b, int c, size_t len);
-extern memset_t orig_memset;// = NULL;
 
 
 typedef void* (*dlopen_t)(const char *path, int mode);

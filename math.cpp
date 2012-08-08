@@ -44,3 +44,22 @@ void VecToAngles( const vec3_t vec, vec3_t angles )
 	angles[YAW] = yaw;
 	angles[ROLL] = 0;
 }
+
+
+float Q_RSqrt( float number )
+{
+    int i;
+    float x2, y;
+    
+    if( number == 0.0 )
+        return 0.0;
+    
+    x2 = number * 0.5f;
+    y = number;
+    i = *(int *) &y;    // evil floating point bit level hacking
+    i = 0x5f3759df - ( i >> 1 ); // what the fuck?
+    y = *(float *) &i;
+    y = y * ( 1.5f - ( x2 * y * y ) ); // this can be done a second time
+    
+    return y;
+}

@@ -32,6 +32,8 @@ void (*orig_Shutdown)() = NULL;
 void VecToAngles( const vec3_t vec, vec3_t angles );
 
 
+
+
 void start_hook()
 {
     // All pointers and structs are up-to-date here.
@@ -70,55 +72,15 @@ void hk_R_RenderScene(const struct refdef_s *fd)
 {
     
     (*orig_R_Renderscene)(fd);
-    
-    for(int i = 0; i < MAX_CLIENTS/*pCg->frame.numEntities*/; i++)
-    {
-        centity_t *pEnt = &(pEnts[i + 1]);
-        vec2_t coords;
-        vec4_t colorOrange = {1, 0.5, 0, 1};
-        vec4_t colorWhite = {1, 1, 1, 1};
-        if( !pCgs->clientInfo[i].name[0])
-            continue;
-        if( pEnt->serverFrame != pCg->frame.serverFrame )
-            continue;
-        if( !pEnt->current.modelindex || !pEnt->current.solid ||
-           pEnt->current.solid == SOLID_BMODEL || pEnt->current.team == TEAM_SPECTATOR )
-            continue;
-        
-        
-        if(i == pCgs->playerNum)
-            continue;
-        vec3_t dir = {0, 0, 0};
-        vec3_t angs;
-        VectorSubtract(pEnt->ent.origin, pCg->view.refdef.vieworg, dir);
-        if( DotProduct(dir, pCg->view.axis[FORWARD] ) < 0)
-            continue;
-        oImport->R_TransformVectorToScreen(&pCg->view.refdef, pEnt->ent.origin, coords);
-        
-        
-        //coords[1];// = pCgs->vidHeight - coords[1];
-        oImport->SCR_DrawString((int)coords[0], (int)coords[1], ALIGN_CENTER_TOP, pCgs->clientInfo[i].name, oImport->SCR_RegisterFont("bitdust_16")/*pCgs->fontSystemSmall*/, colorOrange);
-        oImport->R_DrawStretchPic(coords[0]-20,coords[1]-20,35, 35,0, 0, 1, 1,colorWhite,(shader_s*)(pCgs->media.shaderWeaponIcon[pEnt->current.weapon - 1])->data);
-        
-        VecToAngles(dir, angs);
-        
-        
-        for(int i = 0; i < 2; i++)
-            /*pCl->viewangles[i] += */ angs[i] -= pCg->view.angles[i];
 
-        for(int i = 0; i < 2; i++)
-            pCl->viewangles[i] += angs[i];
-        // Silly draw code
-        vec4_t boxColor = { 1, 0.5, 0, 0.5 };
-        oImport->R_DrawStretchPic( 10, 10, 100, 300, 0, 0, 1, 1, boxColor, oImport->R_RegisterPic("gfx/ui/white") );
-    }
+    gEsp.DoESP();
+    gAimbot.DoAim();
+
     
 }
 
 void hk_R_AddEntityToScene(const struct entity_s* ent)
 {
-    entity_s* w_ent = (entity_s*)ent;
-    w_ent->renderfx |= EF_GODMODE;
     (*orig_R_AddEntityToScene)(ent);
 }
 
