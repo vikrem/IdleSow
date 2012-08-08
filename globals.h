@@ -37,6 +37,7 @@ void die(const char* msg);
 #include "math.h"
 #include "CAimbot.h"
 #include "CEsp.h"
+#include "draw.h"
 
 
 #endif

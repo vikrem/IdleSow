@@ -83,6 +83,6 @@ void CAimbot::DoAim()
         /*
         // Silly draw code
         vec4_t boxColor = { 1, 0.5, 0, 0.5 };
-        oImport->R_DrawStretchPic( 10, 10, 100, 300, 0, 0, 1, 1, boxColor, oImport->R_RegisterPic("gfx/ui/white") );*/
+         );*/
     }
 }
