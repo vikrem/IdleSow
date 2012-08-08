@@ -31,6 +31,9 @@ void die(const char* msg);
 
 #include "libMain.h"
 #include "hooks.h"
+#include "settings.h"
+#include "syscalls.h"
+#include "math.h"
 
 
 
