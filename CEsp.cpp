@@ -33,8 +33,7 @@ void CEsp::DoESP()
         centity_t *pEnt = &(pEnts[i + 1]);
         
         vec2_t coords;
-        vec4_t colorOrange = {1, 0.5, 0, 1};
-        vec4_t colorWhite = {1, 1, 1, 1};
+        
         
         if( !pCgs->clientInfo[i].name[0])
             continue;
@@ -60,12 +59,27 @@ void CEsp::DoESP()
         
         oImport->R_TransformVectorToScreen(&pCg->view.refdef, pEnt->ent.origin, coords);
         
-        
+        vec_t x = coords[0];
+        vec_t y = coords[1];
         if(config.esp.name_esp)
             oImport->SCR_DrawString((int)coords[0], (int)coords[1], ALIGN_CENTER_TOP, pCgs->clientInfo[i].name, espFont, colorOrange);
         
         if(config.esp.weapon_esp)
             oImport->R_DrawStretchPic(coords[0]-20,coords[1]-20,35, 35,0, 0, 1, 1,colorWhite,(shader_s*)(pCgs->media.shaderWeaponIcon[pEnt->current.weapon - 1])->data);
         
+        if(config.esp.box_esp)
+        {
+            // Draw by team
+            int teamNum = pEnt->current.team;
+            vec4_t tColor;
+            
+            tColor[0] = COLOR_R( pCgs->teamColor[teamNum] ) * ( 1.0/255.0 );
+            tColor[1] = COLOR_G( pCgs->teamColor[teamNum] ) * ( 1.0/255.0 );
+            tColor[2] = COLOR_B( pCgs->teamColor[teamNum] ) * ( 1.0/255.0 );
+
+            tColor[3] = 0.5;
+            DrawRectFill(x - 10, y-10, 20, 20, tColor);
+            DrawRectOutline(x - 10, y-10, 20, 20, 1, colorBlack);
+        }
     }
 }

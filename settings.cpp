@@ -26,7 +26,8 @@ void set_default_settings()
     config.esp.enabled = TRUE;
     config.esp.espdist = 4096;
     config.esp.name_esp = TRUE;
-    config.esp.weapon_esp = TRUE;
+    config.esp.weapon_esp = FALSE;//TRUE;
+    config.esp.box_esp = TRUE;
     
     // Aimbot off. Camera off. Esp off.
 }

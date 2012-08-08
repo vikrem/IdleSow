@@ -21,7 +21,7 @@
 #include <unistd.h>
 
 
-void die(const char* msg);
+
 
 #include "../../../SDK/warsow_1.0_sdk/source/cgame/cg_local.h"
 
@@ -37,7 +37,11 @@ void die(const char* msg);
 #include "math.h"
 #include "CAimbot.h"
 #include "CEsp.h"
+#include "CGui.h"
 #include "draw.h"
 
+void die(const char* msg);
+
+extern vec4_t colorOrangeAlpha;
 
 #endif

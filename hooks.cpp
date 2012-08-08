@@ -76,6 +76,7 @@ void hk_R_RenderScene(const struct refdef_s *fd)
     gEsp.DoESP();
     gAimbot.DoAim();
 
+    gGui.Draw();
     
 }
 

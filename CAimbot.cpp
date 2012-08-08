@@ -80,9 +80,6 @@ void CAimbot::DoAim()
         
         for(int i = 0; i < 2; i++)
             pCl->viewangles[i] += angs[i];
-        /*
-        // Silly draw code
-        vec4_t boxColor = { 1, 0.5, 0, 0.5 };
-         );*/
+        
     }
 }

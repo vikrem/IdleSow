@@ -24,6 +24,7 @@ struct esp_settings_t
     bool enabled;
     bool name_esp;
     bool weapon_esp;
+    bool box_esp;
     int espdist;
 };
 
