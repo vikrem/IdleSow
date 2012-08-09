@@ -17,7 +17,7 @@ void set_default_settings()
 {
     // set default options
     config.aimbot.enabled = TRUE;
-    config.aimbot.autoshoot = false;
+    config.aimbot.autoshoot = TRUE;
     config.aimbot.fovenabled = TRUE;
     config.aimbot.aimfov = 30; // Aim within 30 px
     

@@ -48,8 +48,9 @@ void CAimbot::DoAim()
         
         vec3_t dir = {0, 0, 0};
         vec3_t angs = {0, 0, 0};
-        
-        VectorSubtract(pEnt->ent.origin, pCg->view.refdef.vieworg, dir);
+        vec3_t target = {0, 0, 0};
+        VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
+        VectorSubtract(target, pCg->view.refdef.vieworg, dir);
         
         if(config.aimbot.fovenabled)
         {
@@ -58,7 +59,7 @@ void CAimbot::DoAim()
             if( DotProduct(dir, pCg->view.axis[FORWARD] ) < 0)
                 continue; // This person is not in my view
             
-            oImport->R_TransformVectorToScreen(&pCg->view.refdef, pEnt->ent.origin, coords);
+            oImport->R_TransformVectorToScreen(&pCg->view.refdef, target, coords);
             
             // Only aim in this area.
             
@@ -80,6 +81,9 @@ void CAimbot::DoAim()
         
         for(int i = 0; i < 2; i++)
             pCl->viewangles[i] += angs[i];
+        //if (pCl->snapShots[pCl->receivedSnapNum].playerState.plrkeys
+        if(config.aimbot.autoshoot)
+            pCl->cmds[pCl->cmdNum & CMD_MASK].buttons |= BUTTON_ATTACK;
         
     }
 }
