@@ -20,6 +20,7 @@
 #include <time.h>
 #include <unistd.h>
 #include <vector>
+#include <string.h>
 
 using namespace std;
 

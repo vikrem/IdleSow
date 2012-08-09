@@ -103,6 +103,7 @@ void hk_Shutdown()
     
     // Unload ESP font(s)
     gEsp.Unload();
+    gGui.Shutdown();
     
     start_agent();
     (*orig_Shutdown)();

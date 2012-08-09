@@ -17,9 +17,11 @@ class CGui
         CGui();
         void InitSettings();
         void Draw();
+        void Shutdown();
     private:
         mufont_s *guiFont;
-    vector<CMenuItem> items;
+        vector<CMenuItem> items;
+        int selection;
 };
 
 

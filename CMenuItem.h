@@ -15,7 +15,7 @@ enum CMenuItemType { BOOLEAN, INTEGER }; // What kind of setting
 
 struct CMenuItem
 {
-    CMenuItem( const char* label, CMenuItemType item, void* setting) : label(label), type(type), setting(setting) {}
+    CMenuItem( const char* label, CMenuItemType varType, void* setting) : label(label), type(varType), setting(setting) {}
     const char* label; // Name of setting
     CMenuItemType type; // Type of setting
     void* setting; // Pointer to modify setting
