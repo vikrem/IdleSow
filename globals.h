@@ -19,7 +19,9 @@
 #include <pthread.h>
 #include <time.h>
 #include <unistd.h>
+#include <vector>
 
+using namespace std;
 
 
 
@@ -34,11 +36,13 @@
 #include "hooks.h"
 #include "settings.h"
 #include "syscalls.h"
+#include "CMenuItem.h"
 #include "math.h"
 #include "CAimbot.h"
 #include "CEsp.h"
 #include "CGui.h"
 #include "draw.h"
+
 
 void die(const char* msg);
 

@@ -28,3 +28,8 @@ void DrawRectOutline(int x, int y, int w, int h, int borderthickness, vec4_t col
     DrawRectFill( x, y + h, w, borderthickness, color);
                               
 }
+
+void WriteText(int x, int y, const char *str, int align, int maxwidth, mufont_s* font, vec4_t color)
+{
+    oImport->SCR_DrawStringWidth(x, y, align, str, maxwidth, font, color);
+}

@@ -13,5 +13,5 @@
 
 void DrawRectFill(int x, int y, int w, int h, vec4_t color);
 void DrawRectOutline(int x, int y, int w, int h, int borderthickness, vec4_t color);
-
+void WriteText(int x, int y, const char *str, int align, int maxwidth, mufont_s* font, vec4_t color);
 #endif /* defined(__IdleSow__draw__) */

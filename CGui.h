@@ -14,8 +14,12 @@
 class CGui
 {
     public:
+        CGui();
+        void InitSettings();
         void Draw();
-    
+    private:
+        mufont_s *guiFont;
+    vector<CMenuItem> items;
 };
 
 
