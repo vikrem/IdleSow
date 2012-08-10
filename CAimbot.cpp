@@ -60,7 +60,7 @@ void CAimbot::DoAim()
         // first, extrapolate for lag
         //VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
         
-        
+        VectorCopy(pEnt->current.origin, target);
         // then work with velocity
         VectorMA(target, ping / 1000.0f /*pCg->frameTime*/, pEnt->velocity, target);
         
