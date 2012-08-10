@@ -13,14 +13,40 @@ CGui gGui;
 CGui::CGui()
 {
     this->guiFont = NULL;
-    selection = 0;
     InitSettings();
 }
 
 void CGui::Shutdown()
 {
     this->guiFont = NULL;
-    selection = 0;
+}
+
+// Console binds
+void GUI_MoveUp()
+{
+    config.menu.selection++;
+}
+
+void GUI_MoveDown()
+{
+    config.menu.selection--;
+}
+
+void GUI_MenuSelect()
+{
+    if(config.menu.selection >= gGui.items.size())
+        return;
+    else
+    {
+        CMenuItem *tItem = &gGui.items[config.menu.selection];
+        if(tItem->type == BOOLEAN)
+            (*(bool*)tItem->setting) = !(*(bool*)tItem->setting);
+        else
+        {
+            (*(int*)tItem->setting) += 10;
+            (*(int*)tItem->setting) %= min(pCgs->vidWidth, pCgs->vidHeight);
+        }
+    }
 }
 
 void CGui::InitSettings()
@@ -61,15 +87,15 @@ void CGui::Draw()
     if(!guiFont)
         guiFont = pCgs->fontSystemSmall;
     
-    selection %= items.size();
-    selection = abs(selection);
+    config.menu.selection %= items.size();
+    config.menu.selection = abs(config.menu.selection);
     
     //DrawRectFill(20, 20, 100, 200, colorOrangeAlpha);
     //DrawRectOutline(20, 20, 100, 200, 1, colorBlack);
     // Base of where to draw
     int width = 200;
     int xbase = 10;
-    int ybase = 10;
+    int ybase = 60;
     
     int height = oImport->SCR_strHeight(guiFont);
     
@@ -102,7 +128,10 @@ void CGui::Draw()
         }
         
         // Draw background for entry
-        DrawRectFill(xbase, bottom, width, height, colorOrangeAlpha);
+        if(i == config.menu.selection)
+            DrawRectFill(xbase, bottom, width, height, colorBlueAlpha);
+        else
+            DrawRectFill(xbase, bottom, width, height, colorOrangeAlpha);
         WriteText(xbase, bottom, tLabel, ALIGN_LEFT_TOP, 0, guiFont, textColor);
         DrawRectOutline(xbase, bottom, width, height, 1, colorWhite);
     }

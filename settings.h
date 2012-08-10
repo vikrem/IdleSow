@@ -34,11 +34,17 @@ struct camera_settings_t
     bool enabled;
 };
 
+struct menu_settings_t
+{
+    int selection; // selected item
+};
+
 struct settings_t
 {
     aimbot_settings_t aimbot;
     esp_settings_t esp;
     camera_settings_t camera;
+    menu_settings_t menu;
 };
 
 

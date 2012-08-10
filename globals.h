@@ -48,5 +48,5 @@ using namespace std;
 void die(const char* msg);
 
 extern vec4_t colorOrangeAlpha;
-
+extern vec4_t colorBlueAlpha;
 #endif

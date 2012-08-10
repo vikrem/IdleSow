@@ -62,6 +62,22 @@ void start_hook()
     
     oImport->Print("^9[+] RenderView hooked\n");
     
+    // Add gui menu commands
+    
+    oImport->Cmd_AddCommand("menu_moveup", &GUI_MoveUp);
+    oImport->Cmd_AddCommand("menu_movedn", &GUI_MoveDown);
+    oImport->Cmd_AddCommand("menu_select", &GUI_MenuSelect);
+    
+    oImport->Print("^9[+] GUI Injected\n");
+    
+    // Add keybinds
+    
+    oImport->Cmd_ExecuteText(EXEC_NOW, "bind i menu_moveup");
+    oImport->Cmd_ExecuteText(EXEC_NOW, "bind o menu_movedn");
+    oImport->Cmd_ExecuteText(EXEC_NOW, "bind p menu_select");
+    
+    oImport->Print("^9[+] Keybinds i, o, p added\n");
+    
     oImport->Print("^9***************************************************\n");
     oImport->Print("^9If you are seeing this message, all systems are go.\n");
     oImport->Print("^9***************************************************\n");

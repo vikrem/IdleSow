@@ -16,9 +16,9 @@ settings_t config;
 void set_default_settings()
 {
     // set default options
-    config.aimbot.enabled = TRUE;
-    config.aimbot.autoshoot = TRUE;
-    config.aimbot.fovenabled = TRUE;
+    config.aimbot.enabled = false;
+    config.aimbot.autoshoot = false;
+    config.aimbot.fovenabled = false;
     config.aimbot.aimfov = 30; // Aim within 30 px
     
     config.camera.enabled = false;
@@ -28,6 +28,8 @@ void set_default_settings()
     config.esp.name_esp = TRUE;
     config.esp.weapon_esp = FALSE;//TRUE;
     config.esp.box_esp = TRUE;
+    
+    config.menu.selection = 0;
     
     // Aimbot off. Camera off. Esp off.
 }

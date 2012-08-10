@@ -18,12 +18,14 @@ class CGui
         void InitSettings();
         void Draw();
         void Shutdown();
+        vector<CMenuItem> items;
     private:
         mufont_s *guiFont;
-        vector<CMenuItem> items;
-        int selection;
+        
 };
-
+void GUI_MenuSelect();
+void GUI_MoveUp();
+void GUI_MoveDown();
 
 extern CGui gGui;
 

@@ -20,8 +20,13 @@ void CAimbot::DoAim()
     if(!me->current.solid || me->current.team == TEAM_SPECTATOR || me->current.solid == SOLID_BMODEL)
         return;
     
-    // Loop over all players
     
+    
+    if(config.aimbot.fovenabled)
+        DrawRectOutline(pCgs->vidWidth / 2 - config.aimbot.aimfov / 2, pCgs->vidHeight / 2 - config.aimbot.aimfov / 2,
+                        config.aimbot.aimfov , config.aimbot.aimfov , 1, colorBlueAlpha);
+    
+    // Loop over all players
     for(int i = 0; i < MAX_CLIENTS/*pCg->frame.numEntities*/; i++)
     {
         
@@ -49,12 +54,32 @@ void CAimbot::DoAim()
         vec3_t dir = {0, 0, 0};
         vec3_t angs = {0, 0, 0};
         vec3_t target = {0, 0, 0};
+        vec3_t center = {0, 0, 0};
         VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
         VectorSubtract(target, pCg->view.refdef.vieworg, dir);
+        
+        
+        // Try aiming for the center
+        for(int i = 0; i < 3; i++)
+            center[i] = target[i] + (0.5f * (pEnt->ent.model->maxs[i] + pEnt->ent.model->mins[i]));
+        
+        if(isVisible(center))
+            VectorCopy(center, target);
+        
+        if(!isVisible(target))
+            continue;
+        
+      //  if(!isVisible(target) && !isVisible(center));
+        //    continue; // Enemy is behind a wall
+        
+        // Try the center
+        //if(isVisible(center))
+        //    VectorCopy(center, target);
         
         if(config.aimbot.fovenabled)
         {
             vec2_t coords;
+            
             
             if( DotProduct(dir, pCg->view.axis[FORWARD] ) < 0)
                 continue; // This person is not in my view
@@ -63,13 +88,13 @@ void CAimbot::DoAim()
             
             // Only aim in this area.
             
-            if (! (coords[0] >= (pCgs->vidWidth / 2 - config.aimbot.aimfov)))
+            if (! (coords[0] >= (pCgs->vidWidth / 2 - config.aimbot.aimfov / 2)))
                 continue;
-            if (! (coords[0] <= (pCgs->vidWidth / 2 + config.aimbot.aimfov)))
+            if (! (coords[0] <= (pCgs->vidWidth / 2 + config.aimbot.aimfov )))
                 continue;
-            if (! (coords[1] >= (pCgs->vidHeight / 2 - config.aimbot.aimfov)))
+            if (! (coords[1] >= (pCgs->vidHeight / 2 - config.aimbot.aimfov / 2)))
                 continue;
-            if (! (coords[1] <= (pCgs->vidHeight / 2 + config.aimbot.aimfov)))
+            if (! (coords[1] <= (pCgs->vidHeight / 2 + config.aimbot.aimfov )))
                 continue;
         }
         
@@ -84,6 +109,8 @@ void CAimbot::DoAim()
         //if (pCl->snapShots[pCl->receivedSnapNum].playerState.plrkeys
         if(config.aimbot.autoshoot)
             pCl->cmds[pCl->cmdNum & CMD_MASK].buttons |= BUTTON_ATTACK;
+        
+        break; // Don't aim at any more players
         
     }
 }

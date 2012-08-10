@@ -63,3 +63,12 @@ float Q_RSqrt( float number )
     
     return y;
 }
+
+bool isVisible( vec3_t point )
+{
+    trace_t t;
+    vec3_t vec3_origin = {0, 0, 0};
+    oExport->Trace(&t,pCg->view.origin, vec3_origin, vec3_origin,point, -1 , MASK_OPAQUE );
+    
+    return ( t.fraction == 1.0f );
+}
