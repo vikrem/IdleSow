@@ -55,14 +55,18 @@ void CAimbot::DoAim()
         vec3_t angs = {0, 0, 0};
         vec3_t target = {0, 0, 0};
         vec3_t firefrom = {0, 0, 0};
+        float ping = pCg->realTime - pCl->cmd_time[pCg->oldFrame.ucmdExecuted & CMD_MASK];
+        //vec3_t velSq = {0, 0, 0};
         // first, extrapolate for lag
-        VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
+        //VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
+        
+        
         // then work with velocity
-        VectorMA(target, pCg->frameTime, pEnt->velocity, target);
+        VectorMA(target, ping / 1000.0f /*pCg->frameTime*/, pEnt->velocity, target);
         
         // and work with my own velocity
         VectorCopy(pCg->view.refdef.vieworg, firefrom);
-        VectorMA(firefrom, pCg->frameTime, me->velocity, firefrom);
+        VectorMA(firefrom, ping / 1000.0f, me->velocity, firefrom);
         
         // Subtract vectors
         VectorSubtract(target, firefrom, dir);
