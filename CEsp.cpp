@@ -49,15 +49,17 @@ void CEsp::DoESP()
             continue; // Don't ESP ourselves
         
         vec3_t dir = {0, 0, 0};
-        
-        VectorSubtract(pEnt->ent.origin, pCg->view.refdef.vieworg, dir);
+        vec3_t target = {0, 0, 0};
+        VectorCopy(pEnt->current.origin, target);
+        //VectorMA(pEnt->current.origin, pCg->frameTime, pEnt->velocity, target);
+        VectorSubtract(target, pCg->view.refdef.vieworg, dir);
         if( DotProduct(dir, pCg->view.axis[FORWARD] ) < 0)
             continue; // This person is not in my view
         
         if( VectorLengthFast(dir) > config.esp.espdist)
             continue; // Person too far
         
-        oImport->R_TransformVectorToScreen(&pCg->view.refdef, pEnt->ent.origin, coords);
+        oImport->R_TransformVectorToScreen(&pCg->view.refdef, target, coords);
         
         vec_t x = coords[0];
         vec_t y = coords[1];

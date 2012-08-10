@@ -54,18 +54,27 @@ void CAimbot::DoAim()
         vec3_t dir = {0, 0, 0};
         vec3_t angs = {0, 0, 0};
         vec3_t target = {0, 0, 0};
-        vec3_t center = {0, 0, 0};
+        vec3_t firefrom = {0, 0, 0};
+        // first, extrapolate for lag
         VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
-        VectorSubtract(target, pCg->view.refdef.vieworg, dir);
+        // then work with velocity
+        VectorMA(target, pCg->frameTime, pEnt->velocity, target);
         
+        // and work with my own velocity
+        VectorCopy(pCg->view.refdef.vieworg, firefrom);
+        VectorMA(firefrom, pCg->frameTime, me->velocity, firefrom);
         
+        // Subtract vectors
+        VectorSubtract(target, firefrom, dir);
+        
+        /*
         // Try aiming for the center
         for(int i = 0; i < 3; i++)
             center[i] = target[i] + (0.5f * (pEnt->ent.model->maxs[i] + pEnt->ent.model->mins[i]));
         
         if(isVisible(center))
             VectorCopy(center, target);
-        
+        */
         if(!isVisible(target))
             continue;
         
