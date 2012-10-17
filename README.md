@@ -1,9 +1,16 @@
 # IdleSow
-IdleSow is the only available mac cheat for the free game [Warsow](http://www.warsow.net/)
+IdleSow is the only available *mac* cheat for the free game [Warsow](http://www.warsow.net/)
 
-This project is not meant to be used by the public, or really anybody for that matter.
-This project exists only as a proof-of-concept, and is not to be used for malicious purposes.
+This project is still quite a work in progress, but it is very functional! :)
 
-As a result, the most important file has been removed from the repo.
+**There are no binaries available, nor will there be any.** If you can figure out how to build, compile, and inject this thing, then good.
+Please don't share the binaries, and don't go on a personal conquest to ruin the game.
 
-Please don't use this online!
+That said, here's a video demonstrating its use:
+
+##Features:
+* Aimbot w/ generic prediction. Automatically aims at targets
+* Wallhack. Shows enemies, powerups, and other things of interest through walls 
+* Mirrorcam. Shows a rear-view camera to catch enemies sneaking up on you.
+* Name ESP. Shows names of enemies through walls.
+* Weapon ESP. Show weapons of enemies through walls.
