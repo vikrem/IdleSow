@@ -12,7 +12,11 @@
 #include <stdlib.h>
 #include <stdarg.h>
 //#define __USE_GNU
+
+// This definition hits up certain things inside the engine headers that have been modified
+// in order to make things nicely compile.
 #define HAX
+
 #include <stdio.h>
 #include <dlfcn.h>
 #include <mach-o/dyld.h>
@@ -21,16 +25,17 @@
 #include <unistd.h>
 #include <vector>
 #include <string.h>
+#include <math.h>
 
 using namespace std;
 
 
 
-#include "../../../SDK/warsow_1.0_sdk/source/cgame/cg_local.h"
+#include "../../../SDK/warsow_1.02_sdk/source/cgame/cg_local.h"
 
-#include "../../../SDK/warsow_1.0_sdk/source/client/client.h"
-#include "../../../SDK/warsow_1.0_sdk/source/ref_gl/r_local.h"
-#include "../../../SDK/warsow_1.0_sdk/source/gameshared/q_math.h"
+#include "../../../SDK/warsow_1.02_sdk/source/client/client.h"
+#include "../../../SDK/warsow_1.02_sdk/source/ref_gl/r_local.h"
+#include "../../../SDK/warsow_1.02_sdk/source/gameshared/q_math.h"
 
 
 #include "libMain.h"

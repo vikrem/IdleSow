@@ -24,12 +24,12 @@ extern cgame_export_t *oExport;// = NULL;
 // offsets!
 // Some of these are relative to where dyld loads Warsow itself (client and exports), others are to cgame.
 
-#define OFFSET_STATE 0x1963D4
-#define OFFSET_STATIC 0x30E190
-#define OFFSET_ENT 0x220070
-#define OFFSET_IMP 0x17A938
-#define OFFSET_EXP 0x35AD50
-#define OFFSET_CLIENT 0x5DF1F8
+#define OFFSET_STATE 0x19A3D4 // Correct from the beginning
+#define OFFSET_STATIC 0x312194 // Fixed
+#define OFFSET_ENT 0x224074 // Probably fixed
+#define OFFSET_IMP 0x17E938 // Updated for Wsw 1.02. No idea why this changed
+#define OFFSET_EXP 0x35ED50 // Longshot? Unknown if working
+#define OFFSET_CLIENT 0x6301f8 // Fixed
 
 void start_hook();
 
