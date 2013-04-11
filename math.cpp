@@ -46,6 +46,50 @@ void VecToAngles( const vec3_t vec, vec3_t angles )
 }
 
 
+void AnglesToAxis( const vec3_t angles, vec3_t axis[3] )
+{
+	AngleVectors( angles, axis[0], axis[1], axis[2] );
+	VectorInverse( axis[1] );
+}
+
+void AngleVectors( const vec3_t angles, vec3_t forward, vec3_t right, vec3_t up )
+{
+	float angle;
+	static float sr, sp, sy, cr, cp, cy, t;
+	// static to help MS compiler fp bugs
+    
+	angle = DEG2RAD( angles[YAW] );
+	sy = sin( angle );
+	cy = cos( angle );
+	angle = DEG2RAD( angles[PITCH] );
+	sp = sin( angle );
+	cp = cos( angle );
+	angle = DEG2RAD( angles[ROLL] );
+	sr = sin( angle );
+	cr = cos( angle );
+    
+	if( forward )
+	{
+		forward[0] = cp*cy;
+		forward[1] = cp*sy;
+		forward[2] = -sp;
+	}
+	if( right )
+	{
+		t = sr*sp;
+		right[0] = ( -1*t*cy+ -1*cr* -sy );
+		right[1] = ( -1*t*sy+ -1*cr*cy );
+		right[2] = -1*sr*cp;
+	}
+	if( up )
+	{
+		t = cr*sp;
+		up[0] = ( t*cy+ -sr* -sy );
+		up[1] = ( t*sy+ -sr*cy );
+		up[2] = cr*cp;
+	}
+}
+
 float Q_RSqrt( float number )
 {
     int i;

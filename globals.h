@@ -45,6 +45,7 @@ using namespace std;
 #include "CMenuItem.h"
 #include "math.h"
 #include "CAimbot.h"
+#include "CCamera.h"
 #include "CEsp.h"
 #include "CGui.h"
 #include "draw.h"

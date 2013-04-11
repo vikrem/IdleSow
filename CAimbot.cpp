@@ -55,39 +55,41 @@ void CAimbot::DoAim()
         vec3_t angs = {0, 0, 0};
         vec3_t target = {0, 0, 0};
         vec3_t firefrom = {0, 0, 0};
-        float ping = pCg->realTime - pCl->cmd_time[pCg->oldFrame.ucmdExecuted & CMD_MASK];
-        //vec3_t velSq = {0, 0, 0};
-        // first, extrapolate for lag
-        //VectorLerp( pEnt->prev.origin, pCg->lerpfrac, pEnt->current.origin, target );
+        vec3_t delta = { 0, 0 , 0};
         
-        VectorCopy(pEnt->current.origin, target);
-        // then work with velocity
-        VectorMA(target, ping / 1000.0f /*pCg->frameTime*/, pEnt->velocity, target);
+        vec3_t ut = {0, 0, 0};
         
-        // and work with my own velocity
+        float dt = 0.0f;
+        
+        // New lag extrapolation! s = ut + 1/2 a t^2
+        
+        VectorSubtract(pEnt->current.origin, pEnt->prev.origin, ut);
+        
+        // uncertain whether the time is really one frame or not, so let's solve for it
+        
+        if((float)VectorLengthFast(pEnt->prevVelocity) != 0.0f) // Dont div by zero!
+            dt = (float)VectorLengthFast(ut) / (float)VectorLengthFast(pEnt->prevVelocity); // change in time between frames
+        
+        
+        VectorSubtract(pEnt->velocity, pEnt->prevVelocity, delta); // A * t
+
+
+        for(int i = 0; i < 3; i++)
+        {
+            delta[i] = (float)delta[i] * (float)dt; // a * t^2
+            delta[i] /= 2.0f; // 1/2 a t^2
+            target[i] = delta[i] + ut[i] + pEnt->current.origin[i];
+        }
+        
+        // Our own view vector is already lag compensated
         VectorCopy(pCg->view.refdef.vieworg, firefrom);
-        VectorMA(firefrom, ping / 1000.0f, me->velocity, firefrom);
+        
         
         // Subtract vectors
         VectorSubtract(target, firefrom, dir);
         
-        /*
-        // Try aiming for the center
-        for(int i = 0; i < 3; i++)
-            center[i] = target[i] + (0.5f * (pEnt->ent.model->maxs[i] + pEnt->ent.model->mins[i]));
-        
-        if(isVisible(center))
-            VectorCopy(center, target);
-        */
         if(!isVisible(target))
             continue;
-        
-      //  if(!isVisible(target) && !isVisible(center));
-        //    continue; // Enemy is behind a wall
-        
-        // Try the center
-        //if(isVisible(center))
-        //    VectorCopy(center, target);
         
         if(config.aimbot.fovenabled)
         {
@@ -120,8 +122,10 @@ void CAimbot::DoAim()
         for(int i = 0; i < 2; i++)
             pCl->viewangles[i] += angs[i];
         //if (pCl->snapShots[pCl->receivedSnapNum].playerState.plrkeys
-        if(config.aimbot.autoshoot)
+        if(config.aimbot.autoshoot /*&& pCg->pointedNum && !( pCg->frame.playerState.stats[STAT_POINTED_TEAMPLAYER] & 0x1F ) */)
+        {
             pCl->cmds[pCl->cmdNum & CMD_MASK].buttons |= BUTTON_ATTACK;
+        }
         
         break; // Don't aim at any more players
         

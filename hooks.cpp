@@ -94,6 +94,8 @@ void hk_R_RenderScene(const struct refdef_s *fd)
 
     gGui.Draw();
     
+    gCamera.Draw(fd);
+    
 }
 
 void hk_R_AddEntityToScene(const struct entity_s* ent)
@@ -104,6 +106,8 @@ void hk_R_AddEntityToScene(const struct entity_s* ent)
 void hk_RenderView( float frameTime, float realFrameTime, int realTime, unsigned int serverTime, float stereo_separation, unsigned int extrapolationTime )
 {
     (*orig_RenderView)(frameTime, realFrameTime, realTime, serverTime, stereo_separation, extrapolationTime);
+    
+    
 }
 
 
