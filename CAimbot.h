@@ -14,8 +14,10 @@
 class CAimbot
 {
     public:
+        CAimbot() : m_bAiming(false) {}
         void DoAim();
-    
+    private:
+        bool m_bAiming;
 };
 
 extern CAimbot gAimbot;
