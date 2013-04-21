@@ -79,7 +79,7 @@ void CEsp::DoESP()
             tColor[1] = COLOR_G( pCgs->teamColor[teamNum] ) * ( 1.0/255.0 );
             tColor[2] = COLOR_B( pCgs->teamColor[teamNum] ) * ( 1.0/255.0 );
 
-            tColor[3] = 0.5;
+            tColor[3] = 0.25;
             int width = 20;
             DrawRectFill(x - width/2, y-width / 2, width, width, tColor);
             DrawRectOutline(x - width/2, y-width/2, width, width, 1, colorBlack);
